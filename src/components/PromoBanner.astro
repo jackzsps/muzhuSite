@@ -20,7 +20,7 @@ const {
   price = '299,000',
   ctaText = '了解方案詳情',
   ctaUrl = '/pricing/',
-  imageSrc = '/images/DM.jpg',
+  imageSrc = import.meta.env.BASE_URL + 'images/DM.jpg',
   badge = '限時優惠',
 } = Astro.props;
 ---

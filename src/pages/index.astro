@@ -94,7 +94,7 @@ const whyUs = [
       </div>
       <div class="text-center mt-10 reveal">
         <a
-          href="/services/"
+          href={import.meta.env.BASE_URL + "services/"}
           class="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-brand-primary text-brand-primary font-medium hover:bg-brand-primary hover:text-white transition-all duration-300"
         >
           了解完整服務
@@ -135,7 +135,7 @@ const whyUs = [
           </p>
         </div>
         <a
-          href="/portfolio/"
+          href={import.meta.env.BASE_URL + "portfolio/"}
           class="mt-4 sm:mt-0 inline-flex items-center gap-1 text-brand-accent font-medium hover:text-brand-primary transition-colors group"
         >
           查看全部案例
@@ -219,13 +219,13 @@ const whyUs = [
       </p>
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
         <a
-          href="/contact/"
+          href={import.meta.env.BASE_URL + "contact/"}
           class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-brand-primary font-semibold text-lg hover:bg-warm-100 transition-colors shadow-lg hover:shadow-xl"
         >
           免費預約丈量
         </a>
         <a
-          href="/designer/"
+          href={import.meta.env.BASE_URL + "designer/"}
           class="inline-flex items-center gap-2 text-warm-200 hover:text-white font-medium transition-colors"
         >
           設計師合作洽詢 →

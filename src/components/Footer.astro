@@ -7,9 +7,9 @@ import { CONTACT_INFO, MENU_ITEMS } from '@/consts';
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
       <!-- Brand -->
       <div class="lg:col-span-1">
-        <a href="/" class="flex items-center gap-2 mb-4">
+        <a href={import.meta.env.BASE_URL} class="flex items-center gap-2 mb-4">
           <img
-            src="/images/logo.jpg"
+            src={import.meta.env.BASE_URL + "images/logo.jpg"}
             alt="沐築系統家居"
             class="h-12 w-auto rounded-full"
             width="48"
@@ -41,7 +41,7 @@ import { CONTACT_INFO, MENU_ITEMS } from '@/consts';
           }
           <li>
             <a
-              href="/designer/"
+              href={import.meta.env.BASE_URL + "designer/"}
               class="text-warm-300 hover:text-white text-sm transition-colors duration-200"
             >
               設計師合作
@@ -141,7 +141,7 @@ import { CONTACT_INFO, MENU_ITEMS } from '@/consts';
         &copy; {new Date().getFullYear()} 沐築系統家居 MUZU. All rights reserved.
       </p>
       <div class="flex gap-4">
-        <a href="/privacy/" class="hover:text-warm-200 transition-colors"
+        <a href={import.meta.env.BASE_URL + "privacy/"} class="hover:text-warm-200 transition-colors"
           >隱私權政策</a
         >
       </div>

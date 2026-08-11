@@ -9,7 +9,7 @@
   <!-- Background: image + warm overlay -->
   <div class="absolute inset-0">
     <img
-      src="/images/hero-bg.jpg"
+      src={import.meta.env.BASE_URL + "images/hero-bg.jpg"}
       alt="溫暖舒適的居家空間"
       class="w-full h-full object-cover"
       loading="eager"
@@ -43,7 +43,7 @@
     <!-- Dual CTA -->
     <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
       <a
-        href="/contact/"
+        href={import.meta.env.BASE_URL + "contact/"}
         class="group inline-flex items-center gap-2 px-8 py-4 rounded-full bg-brand-primary text-white font-medium text-lg hover:bg-brand-secondary transition-all duration-300 shadow-lg hover:shadow-xl"
       >
         免費預約丈量
@@ -61,7 +61,7 @@
         </svg>
       </a>
       <a
-        href="/designer/"
+        href={import.meta.env.BASE_URL + "designer/"}
         class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white/15 backdrop-blur-sm text-white font-medium text-lg border border-white/30 hover:bg-white/25 transition-all duration-300"
       >
         設計師合作洽詢

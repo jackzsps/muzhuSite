@@ -12,9 +12,9 @@ const currentPath = Astro.url.pathname;
     class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 lg:h-20"
   >
     <!-- Logo -->
-    <a href="/" class="flex items-center gap-2.5 shrink-0" aria-label={SITE_TITLE}>
+    <a href={import.meta.env.BASE_URL} class="flex items-center gap-2.5 shrink-0" aria-label={SITE_TITLE}>
       <img
-        src="/images/logo.jpg"
+        src={import.meta.env.BASE_URL + "images/logo.jpg"}
         alt={SITE_TITLE}
         class="h-10 lg:h-12 w-auto rounded-full shadow-sm"
         width="48"
@@ -48,7 +48,7 @@ const currentPath = Astro.url.pathname;
       }
       <li class="ml-3">
         <a
-          href="/contact/"
+          href={import.meta.env.BASE_URL + "contact/"}
           class="inline-flex items-center px-5 py-2.5 rounded-full bg-brand-primary text-white text-sm font-medium hover:bg-brand-secondary transition-colors duration-200 shadow-sm hover:shadow-md"
         >
           免費諮詢
@@ -117,7 +117,7 @@ const currentPath = Astro.url.pathname;
       }
       <li class="pt-2">
         <a
-          href="/contact/"
+          href={import.meta.env.BASE_URL + "contact/"}
           class="block text-center px-4 py-3 rounded-full bg-brand-primary text-white font-medium"
         >
           免費諮詢
