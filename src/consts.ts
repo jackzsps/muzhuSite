@@ -13,9 +13,9 @@ export const CONTACT_INFO = {
 };
 
 export const MENU_ITEMS = [
-  { label: '首頁', href: '/' },
-  { label: '服務項目', href: '/services/' },
-  { label: '設計案例', href: '/portfolio/' },
-  { label: '價格資訊', href: '/pricing/' },
-  { label: '聯絡我們', href: '/contact/' },
+  { label: '首頁', href: import.meta.env.BASE_URL },
+  { label: '服務項目', href: import.meta.env.BASE_URL + 'services/' },
+  { label: '設計案例', href: import.meta.env.BASE_URL + 'portfolio/' },
+  { label: '價格資訊', href: import.meta.env.BASE_URL + 'pricing/' },
+  { label: '聯絡我們', href: import.meta.env.BASE_URL + 'contact/' },
 ];
