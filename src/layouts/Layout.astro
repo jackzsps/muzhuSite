@@ -1,0 +1,134 @@
+---
+import '@/styles/global.css';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+import LineFloat from '@/components/LineFloat.astro';
+import { SITE_TITLE, SITE_DESCRIPTION, CONTACT_INFO } from '@/consts';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title,
+  description = SITE_DESCRIPTION,
+  image = '/images/logo.jpg',
+} = Astro.props;
+
+/* 首頁不附加品牌名，其他頁面附加 */
+const pageTitle = title ? `${title} | ${SITE_TITLE}` : SITE_TITLE;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{pageTitle}</title>
+
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta property="og:locale" content="zh_TW" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, Astro.site)} />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- JSON-LD: LocalBusiness -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'LocalBusiness',
+        name: '沐築系統家居',
+        alternateName: 'MUZU Smart Storage Living',
+        description: SITE_DESCRIPTION,
+        url: Astro.site?.toString(),
+        telephone: CONTACT_INFO.phone,
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: '中山北路二段116巷39號1樓',
+          addressLocality: '中山區',
+          addressRegion: '台北市',
+          addressCountry: 'TW',
+        },
+        openingHoursSpecification: [
+          {
+            '@type': 'OpeningHoursSpecification',
+            dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+            opens: '09:00',
+            closes: '18:00',
+          },
+          {
+            '@type': 'OpeningHoursSpecification',
+            dayOfWeek: 'Saturday',
+            opens: '10:00',
+            closes: '17:00',
+          },
+        ],
+        image: new URL('/images/logo.jpg', Astro.site).toString(),
+        priceRange: '$$',
+      })}
+    />
+
+    <slot name="head" />
+  </head>
+  <body>
+    <!-- Skip link for accessibility -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-brand-primary focus:text-white focus:rounded-lg"
+    >
+      跳至主要內容
+    </a>
+
+    <Navbar />
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <Footer />
+    <LineFloat />
+
+    <!-- Scroll Reveal Observer -->
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('revealed');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+      );
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>

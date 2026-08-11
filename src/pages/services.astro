@@ -1,0 +1,123 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+---
+
+<Layout title="服務項目 | 沐築系統家居" description="提供系統櫃規劃、全室收納設計與局部空間改造服務。">
+  <!-- Page Header -->
+  <header class="bg-neutral-50 py-16 md:py-24">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl font-bold text-brand-dark mb-4">服務項目</h1>
+      <p class="text-xl text-neutral-600 max-w-2xl mx-auto">專業系統櫃與空間規劃，為您量身打造舒適、實用的居家環境。</p>
+    </div>
+  </header>
+
+  <!-- Detailed Services -->
+  <section class="py-16 md:py-24">
+    <div class="container mx-auto px-4 space-y-24">
+      <!-- Service 1 -->
+      <div id="wardrobe" class="flex flex-col md:flex-row gap-12 items-center">
+        <div class="w-full md:w-1/2">
+          <div class="aspect-video bg-neutral-200 rounded-lg flex items-center justify-center">
+            <span class="text-neutral-400">系統櫃規劃示意圖 (佔位)</span>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2">
+          <h2 class="text-3xl font-bold text-brand-dark mb-4">系統櫃規劃</h2>
+          <p class="text-neutral-600 mb-6">針對客廳電視牆、臥室衣櫃、書房書櫃等單一區域進行系統櫃設計，將空間利用最大化，同時保持視覺的整潔與美觀。</p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start"><span class="text-brand-primary mr-2">✓</span> 量身定制，完美貼合畸零空間</li>
+            <li class="flex items-start"><span class="text-brand-primary mr-2">✓</span> 多樣化板材顏色與紋理選擇</li>
+            <li class="flex items-start"><span class="text-brand-primary mr-2">✓</span> 靈活的內部五金配件搭配</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Service 2 -->
+      <div id="whole-house" class="flex flex-col md:flex-row-reverse gap-12 items-center">
+        <div class="w-full md:w-1/2">
+          <div class="aspect-video bg-neutral-200 rounded-lg flex items-center justify-center">
+            <span class="text-neutral-400">全室收納設計示意圖 (佔位)</span>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2">
+          <h2 class="text-3xl font-bold text-brand-dark mb-4">全室收納設計</h2>
+          <p class="text-neutral-600 mb-6">從玄關到陽台，進行整體性的空間與收納規劃。我們不僅設計櫃體，更考量您的生活動線與習慣，打造最流暢的居家體驗。</p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start"><span class="text-brand-primary mr-2">✓</span> 統一家居風格，提升整體質感</li>
+            <li class="flex items-start"><span class="text-brand-primary mr-2">✓</span> 全面性收納評估，解決儲物痛點</li>
+            <li class="flex items-start"><span class="text-brand-primary mr-2">✓</span> 預算最佳化配置建議</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Service 3 -->
+      <div id="partial" class="flex flex-col md:flex-row gap-12 items-center">
+        <div class="w-full md:w-1/2">
+          <div class="aspect-video bg-neutral-200 rounded-lg flex items-center justify-center">
+            <span class="text-neutral-400">局部空間改造示意圖 (佔位)</span>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2">
+          <h2 class="text-3xl font-bold text-brand-dark mb-4">局部空間改造</h2>
+          <p class="text-neutral-600 mb-6">想為舊家換新裝？只需針對廚房、衛浴或兒童房進行局部系統櫃更新，就能大幅提升生活品質，工期短、影響小。</p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start"><span class="text-brand-primary mr-2">✓</span> 快速施工，減少生活干擾</li>
+            <li class="flex items-start"><span class="text-brand-primary mr-2">✓</span> 舊有空間機能升級</li>
+            <li class="flex items-start"><span class="text-brand-primary mr-2">✓</span> 精準丈量，與原有裝潢無縫接軌</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="py-16 md:py-24 bg-brand-light">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold text-brand-dark mb-4">服務流程</h2>
+        <p class="text-neutral-600 max-w-2xl mx-auto">透明化、標準化的服務流程，讓您安心交付</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-6 text-center">
+        <div class="relative">
+          <div class="w-16 h-16 mx-auto bg-brand-primary text-white rounded-full flex items-center justify-center text-xl font-bold mb-4 z-10 relative">1</div>
+          <h3 class="font-bold text-lg mb-2">初步諮詢</h3>
+          <p class="text-sm text-neutral-600">了解需求與預算，確認合作意願。</p>
+          <div class="hidden md:block absolute top-8 left-[60%] w-full h-[2px] bg-brand-primary/30 -z-0"></div>
+        </div>
+        <div class="relative">
+          <div class="w-16 h-16 mx-auto bg-brand-primary text-white rounded-full flex items-center justify-center text-xl font-bold mb-4 z-10 relative">2</div>
+          <h3 class="font-bold text-lg mb-2">現場丈量</h3>
+          <p class="text-sm text-neutral-600">專人至現場精準丈量尺寸與環境評估。</p>
+          <div class="hidden md:block absolute top-8 left-[60%] w-full h-[2px] bg-brand-primary/30 -z-0"></div>
+        </div>
+        <div class="relative">
+          <div class="w-16 h-16 mx-auto bg-brand-primary text-white rounded-full flex items-center justify-center text-xl font-bold mb-4 z-10 relative">3</div>
+          <h3 class="font-bold text-lg mb-2">設計提案</h3>
+          <p class="text-sm text-neutral-600">提供 3D 示意圖或平立面圖，與報價單。</p>
+          <div class="hidden md:block absolute top-8 left-[60%] w-full h-[2px] bg-brand-primary/30 -z-0"></div>
+        </div>
+        <div class="relative">
+          <div class="w-16 h-16 mx-auto bg-brand-primary text-white rounded-full flex items-center justify-center text-xl font-bold mb-4 z-10 relative">4</div>
+          <h3 class="font-bold text-lg mb-2">下單施作</h3>
+          <p class="text-sm text-neutral-600">簽約並安排板材加工與進場施工期程。</p>
+          <div class="hidden md:block absolute top-8 left-[60%] w-full h-[2px] bg-brand-primary/30 -z-0"></div>
+        </div>
+        <div class="relative">
+          <div class="w-16 h-16 mx-auto bg-brand-primary text-white rounded-full flex items-center justify-center text-xl font-bold mb-4 z-10 relative">5</div>
+          <h3 class="font-bold text-lg mb-2">完工驗收</h3>
+          <p class="text-sm text-neutral-600">現場點交驗收，並啟動售後保固服務。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 text-center">
+    <div class="container mx-auto px-4">
+      <h2 class="text-2xl font-bold mb-6">開始規劃您的居家空間</h2>
+      <a href="/contact" class="inline-block px-8 py-4 bg-brand-primary text-white rounded hover:bg-brand-secondary transition-colors font-medium">免費丈量預約</a>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,79 @@
+{
+  "$ref": "#/definitions/portfolio",
+  "definitions": {
+    "portfolio": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "spaceType": {
+          "type": "string",
+          "enum": [
+            "客廳",
+            "臥室",
+            "書房",
+            "廚房",
+            "玄關",
+            "全室",
+            "商業空間"
+          ]
+        },
+        "materials": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "area": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "string"
+        },
+        "completedDate": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "integer",
+              "format": "unix-time"
+            }
+          ]
+        },
+        "featured": {
+          "type": "boolean",
+          "default": false
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "spaceType",
+        "materials",
+        "completedDate"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

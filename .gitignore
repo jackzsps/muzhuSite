@@ -1,0 +1,34 @@
+# 依賴套件 (Dependencies)
+node_modules/
+
+# 環境變數與機密資訊 (Environment Variables & Secrets)
+.env
+.env.*
+!.env.example
+
+# 建置輸出目錄 (Build outputs)
+dist/
+build/
+
+# AI 輔助開發工具與編輯器設定檔 (AI Tools & IDE configs - 避免洩漏對話紀錄與 API 金鑰)
+.agents/
+.augment/
+.claude/
+.codebuddy/
+.codewhale/
+.continue/
+.cursor/
+.factory/
+.gemini/
+.kilocode/
+.kiro/
+.opencode/
+.qoder/
+.roo/
+.trae/
+.warp/
+.windsurf/
+
+# 作業系統自動產生的檔案 (OS generated files)
+.DS_Store
+Thumbs.db

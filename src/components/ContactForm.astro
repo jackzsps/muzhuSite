@@ -1,0 +1,91 @@
+---
+---
+
+<div class="bg-white shadow-md rounded-lg p-8">
+  <form id="contact-form" class="space-y-6">
+    <div>
+      <label for="identity" class="block text-sm font-medium text-neutral-700">您的身分 <span class="text-red-500">*</span></label>
+      <select id="identity" name="identity" required class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-neutral-300 focus:outline-none focus:ring-brand-primary focus:border-brand-primary sm:text-sm rounded-md border">
+        <option value="" disabled selected>請選擇身分</option>
+        <option value="individual">一般個人戶</option>
+        <option value="designer">設計師</option>
+        <option value="other">其他</option>
+      </select>
+    </div>
+
+    <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+      <div>
+        <label for="name" class="block text-sm font-medium text-neutral-700">姓名 <span class="text-red-500">*</span></label>
+        <input type="text" name="name" id="name" required class="mt-1 block w-full shadow-sm focus:ring-brand-primary focus:border-brand-primary sm:text-sm border-neutral-300 rounded-md border px-3 py-2">
+      </div>
+      <div>
+        <label for="phone" class="block text-sm font-medium text-neutral-700">聯絡電話 <span class="text-red-500">*</span></label>
+        <input type="tel" name="phone" id="phone" required class="mt-1 block w-full shadow-sm focus:ring-brand-primary focus:border-brand-primary sm:text-sm border-neutral-300 rounded-md border px-3 py-2">
+      </div>
+    </div>
+
+    <div>
+      <label for="email" class="block text-sm font-medium text-neutral-700">電子郵件 <span class="text-red-500">*</span></label>
+      <input type="email" name="email" id="email" required class="mt-1 block w-full shadow-sm focus:ring-brand-primary focus:border-brand-primary sm:text-sm border-neutral-300 rounded-md border px-3 py-2">
+    </div>
+
+    <div>
+      <label for="message" class="block text-sm font-medium text-neutral-700">需求說明 <span class="text-red-500">*</span></label>
+      <textarea id="message" name="message" rows="4" required class="mt-1 block w-full shadow-sm focus:ring-brand-primary focus:border-brand-primary sm:text-sm border-neutral-300 rounded-md border px-3 py-2 placeholder-neutral-400" placeholder="請簡述您的需求，例如：廚房系統櫃訂製、全室空間規劃等..."></textarea>
+    </div>
+
+    <div>
+      <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-brand-primary hover:bg-brand-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-primary transition-colors">
+        送出表單
+      </button>
+    </div>
+    
+    <div id="form-status" class="hidden rounded-md p-4 mt-4">
+      <p id="form-message" class="text-sm font-medium"></p>
+    </div>
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const formStatus = document.getElementById('form-status');
+  const formMessage = document.getElementById('form-message');
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData);
+      const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+      
+      submitBtn.disabled = true;
+      submitBtn.textContent = '傳送中...';
+
+      try {
+        // 模擬 API 呼叫
+        // const response = await fetch('/api/contact', {
+        //   method: 'POST',
+        //   headers: { 'Content-Type': 'application/json' },
+        //   body: JSON.stringify(data),
+        // });
+        
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate network request
+
+        if (formStatus && formMessage) {
+          formStatus.className = 'rounded-md p-4 mt-4 bg-green-50 text-green-800 block';
+          formMessage.textContent = '表單已成功送出！我們會盡快與您聯絡。';
+          form.reset();
+        }
+      } catch (error) {
+        if (formStatus && formMessage) {
+          formStatus.className = 'rounded-md p-4 mt-4 bg-red-50 text-red-800 block';
+          formMessage.textContent = '送出失敗，請稍後再試或直接來電聯絡。';
+        }
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '送出表單';
+      }
+    });
+  }
+</script>

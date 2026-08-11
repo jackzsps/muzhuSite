@@ -1,0 +1,91 @@
+---
+/**
+ * PromoBanner — 首頁活動區塊
+ * 客戶重點需求：顯眼展示當期活動，可依節慶更換。
+ * 更換活動時只需修改此元件的 props 預設值或傳入新值。
+ */
+interface Props {
+  title?: string;
+  subtitle?: string;
+  price?: string;
+  ctaText?: string;
+  ctaUrl?: string;
+  imageSrc?: string;
+  badge?: string;
+}
+
+const {
+  title = '兩房一廳全屋系統櫃配置方案',
+  subtitle = '玄關 × 客餐廳 × 主臥 × 次臥，一站式規劃。讓收納更有條理，生活更有質感。',
+  price = '299,000',
+  ctaText = '了解方案詳情',
+  ctaUrl = '/pricing/',
+  imageSrc = '/images/DM.jpg',
+  badge = '限時優惠',
+} = Astro.props;
+---
+
+<section class="py-16 sm:py-20 bg-brand-rose/30" id="promo">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="reveal bg-white rounded-2xl shadow-lg overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+        <!-- Text Side -->
+        <div
+          class="flex flex-col justify-center p-8 sm:p-12 lg:p-16 order-2 lg:order-1"
+        >
+          <span
+            class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-accent/15 text-brand-accent text-sm font-semibold mb-5 w-fit"
+          >
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" /><path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z" /></svg>
+            {badge}
+          </span>
+          <h2
+            class="text-2xl sm:text-3xl font-bold text-brand-secondary mb-4 leading-snug"
+          >
+            {title}
+          </h2>
+          <p class="text-neutral-600 text-base leading-relaxed mb-5">
+            {subtitle}
+          </p>
+          <p class="mb-8">
+            <span class="text-neutral-500 text-sm">NT$</span>
+            <span class="text-4xl sm:text-5xl font-bold text-brand-primary ml-1"
+              >{price}</span
+            >
+            <span class="text-neutral-500 text-sm ml-1">起</span>
+          </p>
+          <a
+            href={ctaUrl}
+            class="group inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-brand-primary text-white font-medium hover:bg-brand-secondary transition-all duration-300 w-fit shadow-sm hover:shadow-md"
+          >
+            {ctaText}
+            <svg
+              class="w-4 h-4 group-hover:translate-x-1 transition-transform"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Image Side -->
+        <div
+          class="relative order-1 lg:order-2 min-h-[300px] lg:min-h-0 overflow-hidden"
+        >
+          <img
+            src={imageSrc}
+            alt={title}
+            class="w-full h-full object-cover object-top hover:scale-[1.02] transition-transform duration-500"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,90 @@
+---
+/**
+ * CaseCard — 案例卡片
+ * 支援 image URL 和 slug 兩種連結方式
+ */
+interface Props {
+  title: string;
+  spaceType: string;
+  description?: string;
+  image?: string;
+  url?: string;
+  slug?: string;
+}
+
+const { title, spaceType, description = '', image, url, slug } = Astro.props;
+const href = url || (slug ? `/portfolio/${slug}/` : '/portfolio/');
+---
+
+<a
+  href={href}
+  class="group block bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"
+>
+  <!-- Image -->
+  <div class="relative aspect-[4/3] overflow-hidden bg-warm-100">
+    {
+      image ? (
+        <img
+          src={image}
+          alt={title}
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          loading="lazy"
+        />
+      ) : (
+        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-warm-100 to-warm-200">
+          <svg
+            class="w-12 h-12 text-warm-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5a1.5 1.5 0 001.5-1.5V5.25a1.5 1.5 0 00-1.5-1.5H3.75a1.5 1.5 0 00-1.5 1.5v14.25a1.5 1.5 0 001.5 1.5zm14.25-14.25h.008v.008h-.008V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+            />
+          </svg>
+        </div>
+      )
+    }
+    <span
+      class="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-brand-primary text-xs font-medium"
+    >
+      {spaceType}
+    </span>
+  </div>
+
+  <!-- Text -->
+  <div class="p-5">
+    <h3
+      class="font-semibold text-brand-secondary group-hover:text-brand-primary transition-colors duration-200 mb-1"
+    >
+      {title}
+    </h3>
+    {
+      description && (
+        <p class="text-sm text-neutral-500 leading-relaxed line-clamp-2">
+          {description}
+        </p>
+      )
+    }
+    <span
+      class="inline-flex items-center gap-1 mt-3 text-sm text-brand-accent font-medium"
+    >
+      查看詳情
+      <svg
+        class="w-4 h-4 group-hover:translate-x-1 transition-transform"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+      </svg>
+    </span>
+  </div>
+</a>

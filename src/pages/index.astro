@@ -1,0 +1,236 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import HeroDual from '@/components/HeroDual.astro';
+import PromoBanner from '@/components/PromoBanner.astro';
+import ServiceCard from '@/components/ServiceCard.astro';
+import CaseCard from '@/components/CaseCard.astro';
+
+const services = [
+  {
+    icon: '<svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" /></svg>',
+    title: '客製化設計',
+    description: '依據您的空間條件與生活需求，量身規劃最適合的系統櫃配置。',
+  },
+  {
+    icon: '<svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" /></svg>',
+    title: '高品質板材',
+    description: '嚴選歐洲進口環保板材，耐用美觀兼具，安心居住無負擔。',
+  },
+  {
+    icon: '<svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085" /></svg>',
+    title: '專業安裝',
+    description: '自有工班專業施工，細節到位，確保每一處安裝品質。',
+  },
+  {
+    icon: '<svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg>',
+    title: '完善售後',
+    description: '提供完整售後保固服務，讓您的居家空間持久如新。',
+  },
+];
+
+const featuredCases = [
+  {
+    title: '北歐風客廳系統櫃',
+    spaceType: '客廳',
+    description: '一字型電視櫃搭配整面書牆，簡約俐落設計，提升客廳質感。',
+    url: '/portfolio/',
+  },
+  {
+    title: '主臥衣櫃規劃',
+    spaceType: '臥室',
+    description: '12尺大容量衣櫃，依據屋主衣物分類習慣量身打造。',
+    url: '/portfolio/',
+  },
+  {
+    title: '全室系統櫃改造',
+    spaceType: '全室',
+    description: '兩房一廳全屋配置，從玄關到臥室一站式規劃。',
+    url: '/portfolio/',
+  },
+];
+
+const whyUs = [
+  { number: '100+', label: '完工案例', desc: '累積豐富施工經驗' },
+  { number: '5', label: '年品質保固', desc: '安心售後有保障' },
+  { number: '30', label: '天快速交付', desc: '高效率不影響生活' },
+];
+---
+
+<Layout
+  description="沐築系統，讓家沒有將就。台北系統櫃規劃、全室收納設計、專業安裝保固。兩房一廳全屋配置方案 NT$299,000 起。"
+>
+  <!-- 1. Hero -->
+  <HeroDual />
+
+  <!-- 2. 活動區塊（客戶重點需求） -->
+  <PromoBanner />
+
+  <!-- 3. 專業服務 -->
+  <section class="py-20 bg-brand-surface" id="services-preview">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <span
+          class="inline-block px-3 py-1 rounded-full bg-brand-rose text-brand-primary text-sm font-medium mb-4"
+        >
+          我們的服務
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-brand-secondary mb-4">
+          專業服務
+        </h2>
+        <p class="text-neutral-500 max-w-xl mx-auto">
+          從丈量設計到安裝保固，沐築提供一站式的專業系統櫃服務
+        </p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 reveal">
+        {
+          services.map((s) => (
+            <ServiceCard
+              icon={s.icon}
+              title={s.title}
+              description={s.description}
+            />
+          ))
+        }
+      </div>
+      <div class="text-center mt-10 reveal">
+        <a
+          href="/services/"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-brand-primary text-brand-primary font-medium hover:bg-brand-primary hover:text-white transition-all duration-300"
+        >
+          了解完整服務
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. 精選案例 -->
+  <section class="py-20 bg-white" id="featured-cases">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div
+        class="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-14 reveal"
+      >
+        <div>
+          <span
+            class="inline-block px-3 py-1 rounded-full bg-brand-rose text-brand-primary text-sm font-medium mb-4"
+          >
+            作品展示
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-bold text-brand-secondary mb-2">
+            精選案例
+          </h2>
+          <p class="text-neutral-500">
+            看看沐築如何為不同家庭打造理想空間
+          </p>
+        </div>
+        <a
+          href="/portfolio/"
+          class="mt-4 sm:mt-0 inline-flex items-center gap-1 text-brand-accent font-medium hover:text-brand-primary transition-colors group"
+        >
+          查看全部案例
+          <svg
+            class="w-4 h-4 group-hover:translate-x-1 transition-transform"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </a>
+      </div>
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 reveal"
+      >
+        {
+          featuredCases.map((c) => (
+            <CaseCard
+              title={c.title}
+              spaceType={c.spaceType}
+              description={c.description}
+              url={c.url}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. 為什麼選擇沐築 -->
+  <section class="py-20 bg-brand-surface-alt" id="why-muzu">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <span
+          class="inline-block px-3 py-1 rounded-full bg-brand-rose text-brand-primary text-sm font-medium mb-4"
+        >
+          品牌實力
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-brand-secondary mb-4">
+          為什麼選擇沐築
+        </h2>
+        <p class="text-neutral-500 max-w-xl mx-auto">
+          用品質與服務，贏得您的信賴
+        </p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 reveal">
+        {
+          whyUs.map((item) => (
+            <div class="text-center p-8 bg-white rounded-2xl shadow-sm">
+              <div class="text-5xl sm:text-6xl font-bold text-brand-primary mb-2">
+                {item.number}
+              </div>
+              <div class="text-xl font-semibold text-brand-secondary mb-1">
+                {item.label}
+              </div>
+              <div class="text-neutral-500 text-sm">{item.desc}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. 底部 CTA -->
+  <section
+    class="py-20 bg-gradient-to-br from-brand-primary to-brand-secondary text-white"
+    id="cta-bottom"
+  >
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center reveal">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">
+        準備好打造理想居家空間了嗎？
+      </h2>
+      <p class="text-warm-200 text-lg mb-10 leading-relaxed">
+        免費到府丈量，專業團隊為您量身規劃<br class="hidden sm:block" />
+        讓沐築陪您一起，讓家沒有將就
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a
+          href="/contact/"
+          class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-brand-primary font-semibold text-lg hover:bg-warm-100 transition-colors shadow-lg hover:shadow-xl"
+        >
+          免費預約丈量
+        </a>
+        <a
+          href="/designer/"
+          class="inline-flex items-center gap-2 text-warm-200 hover:text-white font-medium transition-colors"
+        >
+          設計師合作洽詢 →
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

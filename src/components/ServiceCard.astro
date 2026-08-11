@@ -1,0 +1,25 @@
+---
+/**
+ * ServiceCard — 服務亮點卡片
+ * 首頁用：icon + 標題 + 描述
+ */
+interface Props {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+const { icon, title, description } = Astro.props;
+---
+
+<div
+  class="group bg-white rounded-xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 text-center"
+>
+  <div
+    class="w-14 h-14 rounded-full bg-brand-rose flex items-center justify-center text-brand-primary mx-auto mb-5 group-hover:scale-110 transition-transform duration-300"
+  >
+    <Fragment set:html={icon} />
+  </div>
+  <h3 class="text-lg font-semibold text-brand-secondary mb-2">{title}</h3>
+  <p class="text-neutral-500 text-sm leading-relaxed">{description}</p>
+</div>

@@ -1,0 +1,22 @@
+{
+  "name": "muzhu-site",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^4.3.13",
+    "@astrojs/sitemap": "^3.7.0",
+    "@tailwindcss/typography": "^0.5.0-alpha.3",
+    "@tailwindcss/vite": "^4.2.1",
+    "astro": "^5.17.1",
+    "tailwindcss": "^4.2.1",
+    "typescript": "^5.7.3"
+  }
+}

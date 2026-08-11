@@ -1,0 +1,63 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CaseCard from '../../components/CaseCard.astro';
+
+// In a real app, this would use getCollection('portfolio')
+// Placeholder data for the gallery
+const cases = [
+  { title: '北歐風明亮客廳', description: '溫潤木紋搭配白色系板材', spaceType: '客廳', image: '', url: '/portfolio/case-1' },
+  { title: '現代極簡主臥', description: '隱藏式收納與無把手設計', spaceType: '臥室', image: '', url: '/portfolio/case-2' },
+  { title: '日式禪風書房', description: '靜謐的閱讀與工作空間', spaceType: '書房', image: '', url: '/portfolio/case-3' },
+  { title: 'L型實用廚房', description: '動線順暢的烹飪天堂', spaceType: '廚房', image: '', url: '/portfolio/case-4' },
+  { title: '多功能玄關櫃', description: '鞋櫃、穿鞋椅與一日衣櫃結合', spaceType: '玄關', image: '', url: '/portfolio/case-5' },
+  { title: '全室收納大改造', description: '30坪老屋翻新，收納機能倍增', spaceType: '全室', image: '', url: '/portfolio/case-6' },
+];
+
+const spaceTypes = ['全部', '客廳', '臥室', '書房', '廚房', '玄關', '全室'];
+---
+
+<Layout title="作品案例 | 沐築系統家居" description="瀏覽沐築系統家居的精選案例，尋找您的居家靈感。">
+  <!-- Page Header -->
+  <header class="bg-neutral-50 py-16">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl font-bold text-brand-dark mb-4">作品案例</h1>
+      <p class="text-xl text-neutral-600 max-w-2xl mx-auto">探索我們如何將各種空間轉化為美感與實用兼具的生活場域。</p>
+    </div>
+  </header>
+
+  <!-- Gallery Section -->
+  <section class="py-12 md:py-16">
+    <div class="container mx-auto px-4">
+      
+      <!-- Static Filters (Visual only for now) -->
+      <div class="flex flex-wrap justify-center gap-3 mb-12">
+        {spaceTypes.map((type, index) => (
+          <button class={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${index === 0 ? 'bg-brand-primary text-white' : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'}`}>
+            {type}
+          </button>
+        ))}
+      </div>
+
+      <!-- Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {cases.map((c) => (
+          <CaseCard {...c} />
+        ))}
+      </div>
+      
+      <!-- Pagination Placeholder -->
+      <div class="mt-16 flex justify-center gap-2">
+        <span class="w-10 h-10 flex items-center justify-center bg-brand-primary text-white rounded">1</span>
+        <a href="#" class="w-10 h-10 flex items-center justify-center bg-neutral-100 text-neutral-600 rounded hover:bg-neutral-200">2</a>
+        <a href="#" class="w-10 h-10 flex items-center justify-center bg-neutral-100 text-neutral-600 rounded hover:bg-neutral-200">3</a>
+      </div>
+    </div>
+  </section>
+  
+  <section class="py-16 bg-brand-light text-center">
+    <div class="container mx-auto px-4">
+      <h2 class="text-2xl font-bold mb-4">找到喜歡的風格了嗎？</h2>
+      <a href="/contact" class="text-brand-primary font-bold hover:underline">與我們討論您的想法 →</a>
+    </div>
+  </section>
+</Layout>
