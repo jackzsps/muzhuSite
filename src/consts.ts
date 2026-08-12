@@ -4,8 +4,8 @@ export const SITE_DESCRIPTION =
 
 export const CONTACT_INFO = {
   phone: '02-25418826',
-  mobile: '0912-767-366',
-  manager: '王玉儀',
+  mobile: '0955865062',
+  manager: '林冠均',
   email: 'contact@muzhu.com.tw',
   address: '台北市中山區中山北路二段116巷39號1樓',
   line: '@muzu.tw',
