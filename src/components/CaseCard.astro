@@ -13,12 +13,14 @@ interface Props {
 }
 
 const { title, spaceType, description = '', image, url, slug } = Astro.props;
-const href = url || (slug ? `/portfolio/${slug}/` : '/portfolio/');
+const base = import.meta.env.BASE_URL;
+const href = url || (slug ? `${base}portfolio/${slug}/` : `${base}portfolio/`);
 ---
 
 <a
   href={href}
-  class="group block bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"
+  class="case-card-item group block bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"
+  data-category={spaceType}
 >
   <!-- Image -->
   <div class="relative aspect-[4/3] overflow-hidden bg-warm-100">

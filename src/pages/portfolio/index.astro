@@ -2,21 +2,69 @@
 import Layout from '../../layouts/Layout.astro';
 import CaseCard from '../../components/CaseCard.astro';
 
-// In a real app, this would use getCollection('portfolio')
-// Placeholder data for the gallery
 const cases = [
-  { title: '北歐風明亮客廳', description: '溫潤木紋搭配白色系板材', spaceType: '客廳', image: '', url: '/portfolio/case-1' },
-  { title: '現代極簡主臥', description: '隱藏式收納與無把手設計', spaceType: '臥室', image: '', url: '/portfolio/case-2' },
-  { title: '日式禪風書房', description: '靜謐的閱讀與工作空間', spaceType: '書房', image: '', url: '/portfolio/case-3' },
-  { title: 'L型實用廚房', description: '動線順暢的烹飪天堂', spaceType: '廚房', image: '', url: '/portfolio/case-4' },
-  { title: '多功能玄關櫃', description: '鞋櫃、穿鞋椅與一日衣櫃結合', spaceType: '玄關', image: '', url: '/portfolio/case-5' },
-  { title: '全室收納大改造', description: '30坪老屋翻新，收納機能倍增', spaceType: '全室', image: '', url: '/portfolio/case-6' },
+  {
+    title: '北歐風客廳系統櫃',
+    description: '一字型電視櫃搭配沉穩木質背板與格柵造型，簡約俐落提升空間質感。',
+    spaceType: '客廳',
+    image: import.meta.env.BASE_URL + 'images/北歐風客廳系統櫃.jpg',
+    url: import.meta.env.BASE_URL + 'contact/',
+  },
+  {
+    title: '全室系統櫃改造',
+    description: '兩房一廳全屋配置，客餐廳電視牆結合精品玻璃展示櫃與多功能中島。',
+    spaceType: '全室',
+    image: import.meta.env.BASE_URL + 'images/全室系統櫃改造.jpg',
+    url: import.meta.env.BASE_URL + 'contact/',
+  },
+  {
+    title: '現代極簡臥室',
+    description: '頂天無把手大容量衣櫃與壁掛床頭櫃，搭配線條嵌燈營造靜謐睡眠氛圍。',
+    spaceType: '臥室',
+    image: import.meta.env.BASE_URL + 'images/現代極簡臥室.jpg',
+    url: import.meta.env.BASE_URL + 'contact/',
+  },
+  {
+    title: '主臥衣櫃規劃',
+    description: '純白頂天衣櫃結合木質開放式吊衣玄關端景，實用與美感兼具。',
+    spaceType: '臥室',
+    image: import.meta.env.BASE_URL + 'images/主臥衣櫃規劃.jpg',
+    url: import.meta.env.BASE_URL + 'contact/',
+  },
+  {
+    title: 'L型實用廚房',
+    description: '現代灰白雙色門片搭配嵌入式電器高櫃，動線順暢的烹飪收納空間。',
+    spaceType: '廚房',
+    image: import.meta.env.BASE_URL + 'images/L型實用廚房.jpg',
+    url: import.meta.env.BASE_URL + 'contact/',
+  },
+  {
+    title: '精品玻璃衣帽間',
+    description: '鋁框黑玻門片內嵌線條氣氛燈與抽屜櫃，打造精品飯店級更衣體驗。',
+    spaceType: '臥室',
+    image: import.meta.env.BASE_URL + 'images/2024-02-21 142310.jpg',
+    url: import.meta.env.BASE_URL + 'contact/',
+  },
+  {
+    title: '開放式中島餐廚',
+    description: '大尺度中島結合餐桌與電器收納高櫃，完美整合餐廚動線與生活交流。',
+    spaceType: '廚房',
+    image: import.meta.env.BASE_URL + 'images/2024-03-03 145313(3).jpg',
+    url: import.meta.env.BASE_URL + 'contact/',
+  },
+  {
+    title: '現代簡約餐邊吧台櫃',
+    description: '開放式酒架、石紋防濺背板與大容量抽屜收納，兼具調飲與備餐機能。',
+    spaceType: '餐廳',
+    image: import.meta.env.BASE_URL + 'images/2024-03-04 185709(6).jpg',
+    url: import.meta.env.BASE_URL + 'contact/',
+  },
 ];
 
-const spaceTypes = ['全部', '客廳', '臥室', '書房', '廚房', '玄關', '全室'];
+const spaceTypes = ['全部', '客廳', '臥室', '廚房', '餐廳', '全室'];
 ---
 
-<Layout title="作品案例 | 沐築系統家居" description="瀏覽沐築系統家居的精選案例，尋找您的居家靈感。">
+<Layout title="作品案例 | 沐築系統家居" description="瀏覽沐築系統家居的精選案例，尋找您的居家裝潢靈感。">
   <!-- Page Header -->
   <header class="bg-neutral-50 py-16">
     <div class="container mx-auto px-4 text-center">
@@ -29,28 +77,30 @@ const spaceTypes = ['全部', '客廳', '臥室', '書房', '廚房', '玄關', 
   <section class="py-12 md:py-16">
     <div class="container mx-auto px-4">
       
-      <!-- Static Filters (Visual only for now) -->
-      <div class="flex flex-wrap justify-center gap-3 mb-12">
+      <!-- Interactive Filter Buttons -->
+      <div class="flex flex-wrap justify-center gap-3 mb-12" id="filter-container">
         {spaceTypes.map((type, index) => (
-          <button class={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${index === 0 ? 'bg-brand-primary text-white' : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'}`}>
+          <button
+            type="button"
+            data-filter={type}
+            class={`filter-btn px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer ${
+              index === 0
+                ? 'bg-brand-primary text-white shadow-sm active-filter'
+                : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200 hover:text-brand-dark'
+            }`}
+          >
             {type}
           </button>
         ))}
       </div>
 
       <!-- Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="cases-grid">
         {cases.map((c) => (
           <CaseCard {...c} />
         ))}
       </div>
       
-      <!-- Pagination Placeholder -->
-      <div class="mt-16 flex justify-center gap-2">
-        <span class="w-10 h-10 flex items-center justify-center bg-brand-primary text-white rounded">1</span>
-        <a href="#" class="w-10 h-10 flex items-center justify-center bg-neutral-100 text-neutral-600 rounded hover:bg-neutral-200">2</a>
-        <a href="#" class="w-10 h-10 flex items-center justify-center bg-neutral-100 text-neutral-600 rounded hover:bg-neutral-200">3</a>
-      </div>
     </div>
   </section>
   
@@ -61,3 +111,30 @@ const spaceTypes = ['全部', '客廳', '臥室', '書房', '廚房', '玄關', 
     </div>
   </section>
 </Layout>
+
+<script>
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.case-card-item');
+
+  filterButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const selected = btn.getAttribute('data-filter') || '全部';
+
+      filterButtons.forEach((b) => {
+        b.classList.remove('bg-brand-primary', 'text-white', 'shadow-sm', 'active-filter');
+        b.classList.add('bg-neutral-100', 'text-neutral-600');
+      });
+      btn.classList.remove('bg-neutral-100', 'text-neutral-600');
+      btn.classList.add('bg-brand-primary', 'text-white', 'shadow-sm', 'active-filter');
+
+      cards.forEach((card) => {
+        const category = card.getAttribute('data-category');
+        if (selected === '全部' || category === selected) {
+          (card as HTMLElement).style.display = 'block';
+        } else {
+          (card as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

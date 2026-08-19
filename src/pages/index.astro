@@ -32,20 +32,23 @@ const featuredCases = [
   {
     title: '北歐風客廳系統櫃',
     spaceType: '客廳',
-    description: '一字型電視櫃搭配整面書牆，簡約俐落設計，提升客廳質感。',
-    url: '/portfolio/',
+    description: '一字型電視櫃搭配沉穩木質背板與展示收納，簡約俐落提升客廳質感。',
+    image: import.meta.env.BASE_URL + 'images/北歐風客廳系統櫃.jpg',
+    url: import.meta.env.BASE_URL + 'portfolio/',
   },
   {
     title: '主臥衣櫃規劃',
     spaceType: '臥室',
-    description: '12尺大容量衣櫃，依據屋主衣物分類習慣量身打造。',
-    url: '/portfolio/',
+    description: '頂天大容量衣櫃結合開放式木質吊衣端景區，實用與美感兼備。',
+    image: import.meta.env.BASE_URL + 'images/主臥衣櫃規劃.jpg',
+    url: import.meta.env.BASE_URL + 'portfolio/',
   },
   {
     title: '全室系統櫃改造',
     spaceType: '全室',
-    description: '兩房一廳全屋配置，從玄關到臥室一站式規劃。',
-    url: '/portfolio/',
+    description: '兩房一廳全屋配置，客廳電視牆結合精品展示櫃與收納島台。',
+    image: import.meta.env.BASE_URL + 'images/全室系統櫃改造.jpg',
+    url: import.meta.env.BASE_URL + 'portfolio/',
   },
 ];
 
@@ -162,6 +165,7 @@ const whyUs = [
               title={c.title}
               spaceType={c.spaceType}
               description={c.description}
+              image={c.image}
               url={c.url}
             />
           ))

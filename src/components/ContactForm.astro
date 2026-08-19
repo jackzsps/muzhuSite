@@ -56,7 +56,6 @@
       e.preventDefault();
       
       const formData = new FormData(form);
-      const data = Object.fromEntries(formData);
       const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
       
       submitBtn.disabled = true;
