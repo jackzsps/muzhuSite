@@ -4,12 +4,15 @@ export const SITE_DESCRIPTION =
 
 export const CONTACT_INFO = {
   phone: '02-25418826',
-  mobile: '0955865062',
-  manager: '林冠均',
-  email: 'contact@muzhu.com.tw',
+  email: 'muzu.jim@muzutw.com',
   address: '台北市中山區中山北路二段116巷39號1樓',
   line: '@muzu.tw',
   lineUrl: 'https://line.me/R/ti/p/@muzu.tw',
+  businessHours: [
+    '週一至週五 09:00 - 18:00',
+    '週六 10:00 - 17:00',
+    '週日及國定假日 公休',
+  ],
 };
 
 export const MENU_ITEMS = [
