@@ -5,8 +5,8 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://jackzsps.github.io',
-  base: '/muzhuSite/',
+  site: 'https://muzhusite.pages.dev',
+  base: '/',
   trailingSlash: 'always',
   integrations: [
     mdx(),
