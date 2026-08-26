@@ -2,9 +2,9 @@
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "baseUrl": ".",
-    "types": ["@cloudflare/workers-types"],
     "paths": {
       "@/*": ["src/*"]
     }
-  }
+  },
+  "exclude": ["dist", "functions"]
 }
