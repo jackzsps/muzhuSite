@@ -154,19 +154,37 @@
       submitBtn.textContent = '傳送中...';
 
       try {
-        // 模擬 API 呼叫
-        // const response = await fetch('/api/contact', {
-        //   method: 'POST',
-        //   headers: { 'Content-Type': 'application/json' },
-        //   body: JSON.stringify(data),
-        // });
-        
-        await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate network request
+        const formData = new FormData(form);
+        const data = {
+          name: formData.get('name'),
+          phone: formData.get('phone'),
+          city: formData.get('city'),
+          houseAge: formData.get('houseAge'),
+          indoorPing: formData.get('indoorPing'),
+          budget: formData.get('budget'),
+          message: formData.get('message'),
+          turnstileToken: turnstileResponse.value,
+        };
+
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
 
         if (formStatus && formMessage) {
-          formStatus.className = 'rounded-md p-4 mt-4 bg-green-50 text-green-800 block';
-          formMessage.textContent = '表單已成功送出！我們會盡快與您聯絡。';
-          form.reset();
+          if (response.ok) {
+            formStatus.className = 'rounded-md p-4 mt-4 bg-green-50 text-green-800 block';
+            formMessage.textContent = '表單已成功送出！我們會盡快與您聯絡。';
+            form.reset();
+            // 重置 Turnstile
+            if (window.turnstile) window.turnstile.reset();
+          } else {
+            formStatus.className = 'rounded-md p-4 mt-4 bg-red-50 text-red-800 block';
+            formMessage.textContent = result.error || '送出失敗，請稍後再試。';
+          }
         }
       } catch (error) {
         if (formStatus && formMessage) {
