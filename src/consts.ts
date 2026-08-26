@@ -20,5 +20,5 @@ export const MENU_ITEMS = [
   { label: '服務項目', href: import.meta.env.BASE_URL + 'services/' },
   { label: '設計案例', href: import.meta.env.BASE_URL + 'portfolio/' },
   { label: '價格資訊', href: import.meta.env.BASE_URL + 'pricing/' },
-  { label: '聯絡我們', href: import.meta.env.BASE_URL + 'contact/' },
+
 ];
