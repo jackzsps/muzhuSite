@@ -172,7 +172,7 @@
           body: JSON.stringify(data),
         });
 
-        const result = await response.json();
+        const result = await response.json() as { error?: string };
 
         if (formStatus && formMessage) {
           if (response.ok) {
@@ -180,7 +180,7 @@
             formMessage.textContent = '表單已成功送出！我們會盡快與您聯絡。';
             form.reset();
             // 重置 Turnstile
-            if (window.turnstile) window.turnstile.reset();
+            if ((window as any).turnstile) (window as any).turnstile.reset();
           } else {
             formStatus.className = 'rounded-md p-4 mt-4 bg-red-50 text-red-800 block';
             formMessage.textContent = result.error || '送出失敗，請稍後再試。';
