@@ -109,6 +109,9 @@
       ></textarea>
     </div>
 
+    <!-- Turnstile 機器人驗證 -->
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAAEc7seHstUiTIDCi" data-theme="light"></div>
+
     <!-- Submit Button -->
     <div>
       <button
@@ -125,6 +128,8 @@
   </form>
 </div>
 
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
 <script>
   const form = document.getElementById('contact-form') as HTMLFormElement;
   const formStatus = document.getElementById('form-status');
@@ -133,6 +138,16 @@
   if (form) {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      // 檢查 Turnstile 驗證
+      const turnstileResponse = form.querySelector<HTMLInputElement>('[name="cf-turnstile-response"]');
+      if (!turnstileResponse || !turnstileResponse.value) {
+        if (formStatus && formMessage) {
+          formStatus.className = 'rounded-md p-4 mt-4 bg-red-50 text-red-800 block';
+          formMessage.textContent = '請完成機器人驗證。';
+        }
+        return;
+      }
       
       const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
       
