@@ -62,7 +62,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         Authorization: `Bearer ${env.RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: '沐築系統家居 <noreply@muzutw.com>',
+        from: '沐築系統家居 <noreply@muzu.com.tw>',
         to: recipients,
         subject: `【網站詢價】${name} - ${city}`,
         html: `
