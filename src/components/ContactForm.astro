@@ -130,6 +130,15 @@
 
 
 <script>
+  // 動態載入 Turnstile script
+  if (!document.querySelector('script[src*="challenges.cloudflare.com/turnstile"]')) {
+    const s = document.createElement('script');
+    s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+    s.async = true;
+    s.defer = true;
+    document.head.appendChild(s);
+  }
+
   const form = document.getElementById('contact-form') as HTMLFormElement;
   const formStatus = document.getElementById('form-status');
   const formMessage = document.getElementById('form-message');
