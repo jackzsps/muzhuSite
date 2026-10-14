@@ -7,53 +7,86 @@
 interface Props {
   title?: string;
   subtitle?: string;
+  features?: string[];
   price?: string;
+  priceSuffix?: string;
   ctaText?: string;
   ctaUrl?: string;
+  videoSrc?: string;
+  posterSrc?: string;
   imageSrc?: string;
+  reelUrl?: string;
   badge?: string;
 }
 
 const {
-  title = '開學季 臥室改造方案',
-  subtitle = '榻榻米單人床 × 吊櫃書桌 × 衣櫃。小空間・大收納・高效率，把小空間變成最適合你的學習與休息基地！',
-  price = '120,000',
+  title = '讓鞋櫃轉出更多收納空間！',
+  subtitle = '鞋子越買越多，藏在深處的那雙總是找不到？沐築「旋轉鞋架」，輕輕一轉，讓鞋子轉到眼前，挑鞋、拿鞋更順手！',
+  features = [
+    '多層收納，鞋子整齊分層',
+    '旋轉取物，深處空間也好拿',
+    '收進櫃內，玄關清爽更俐落',
+  ],
+  price = '18,888',
+  priceSuffix = '活動特價',
   ctaText = '了解方案詳情',
   ctaUrl = import.meta.env.BASE_URL + 'contact/',
-  imageSrc = import.meta.env.BASE_URL + 'images/DM3.jpg',
-  badge = '限時優惠',
+  videoSrc = import.meta.env.BASE_URL + 'videos/promo-reel.mp4',
+  posterSrc = import.meta.env.BASE_URL + 'images/promo-reel-poster.jpg',
+  imageSrc,
+  reelUrl = 'https://www.instagram.com/muzu_living/reel/Dd8PhpPT86z/',
+  badge = '雙十限定優惠',
 } = Astro.props;
 ---
 
 <section class="py-16 sm:py-20 bg-brand-rose/30" id="promo">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="reveal bg-white rounded-2xl shadow-lg overflow-hidden">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
         <!-- Text Side -->
         <div
-          class="flex flex-col justify-center p-8 sm:p-12 lg:p-16 order-2 lg:order-1"
+          class="flex flex-col justify-center p-8 sm:p-12 lg:p-14 lg:col-span-7 order-2 lg:order-1"
         >
           <span
-            class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-accent/15 text-brand-accent text-sm font-semibold mb-5 w-fit"
+            class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-brand-accent/15 text-brand-accent text-sm font-semibold mb-5 w-fit"
           >
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" /><path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z" /></svg>
             {badge}
           </span>
           <h2
-            class="text-2xl sm:text-3xl font-bold text-brand-secondary mb-4 leading-snug"
+            class="text-2xl sm:text-3xl lg:text-4xl font-bold text-brand-secondary mb-4 leading-snug"
           >
             {title}
           </h2>
           <p class="text-neutral-600 text-base leading-relaxed mb-5">
             {subtitle}
           </p>
-          <p class="mb-8">
+
+          {features && features.length > 0 && (
+            <ul class="space-y-2.5 mb-6 text-neutral-700 text-sm sm:text-base">
+              {features.map((item) => (
+                <li class="flex items-center gap-2.5">
+                  <span class="flex-shrink-0 w-5 h-5 rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center text-xs font-bold">
+                    ✓
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          <div class="mb-8 flex items-baseline gap-2 flex-wrap">
+            {priceSuffix && (
+              <span class="px-2.5 py-0.5 rounded bg-brand-rose text-brand-primary text-xs font-semibold">
+                {priceSuffix}
+              </span>
+            )}
             <span class="text-neutral-500 text-sm">NT$</span>
-            <span class="text-4xl sm:text-5xl font-bold text-brand-primary ml-1"
+            <span class="text-4xl sm:text-5xl font-bold text-brand-primary"
               >{price}</span
             >
-            <span class="text-neutral-500 text-sm ml-1">起</span>
-          </p>
+          </div>
+
           <a
             href={ctaUrl}
             class="group inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-brand-primary text-white font-medium hover:bg-brand-secondary transition-all duration-300 w-fit shadow-sm hover:shadow-md"
@@ -74,18 +107,123 @@ const {
           </a>
         </div>
 
-        <!-- Image Side -->
+        <!-- Video / Media Side -->
         <div
-          class="relative order-1 lg:order-2 min-h-[300px] lg:min-h-0 overflow-hidden"
+          class="relative order-1 lg:order-2 lg:col-span-5 min-h-[420px] sm:min-h-[500px] bg-brand-dark flex items-center justify-center overflow-hidden p-4 sm:p-6"
         >
-          <img
-            src={imageSrc}
-            alt={title}
-            class="w-full h-full object-cover object-top hover:scale-[1.02] transition-transform duration-500"
-            loading="lazy"
-          />
+          {videoSrc ? (
+            <>
+              <!-- Ambient blurred backdrop so vertical 9:16 video has no harsh black bars -->
+              {posterSrc && (
+                <img
+                  src={posterSrc}
+                  alt=""
+                  aria-hidden="true"
+                  class="absolute inset-0 w-full h-full object-cover blur-xl scale-110 opacity-40 pointer-events-none select-none"
+                  loading="lazy"
+                />
+              )}
+
+              <!-- 9:16 Reel Video Container -->
+              <div class="relative z-10 w-full max-w-[280px] sm:max-w-[310px] aspect-[9/16] rounded-xl overflow-hidden shadow-2xl ring-1 ring-white/20 bg-black">
+                <video
+                  id="promo-reel-video"
+                  src={videoSrc}
+                  poster={posterSrc}
+                  class="w-full h-full object-cover"
+                  autoplay
+                  loop
+                  muted
+                  playsinline
+                  preload="metadata"
+                ></video>
+
+                <!-- Mute / Unmute Toggle -->
+                <button
+                  type="button"
+                  id="promo-audio-toggle"
+                  aria-label="切換影片聲音"
+                  class="absolute bottom-3 right-3 z-20 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 hover:bg-black/80 text-white text-xs font-medium backdrop-blur-sm transition-colors cursor-pointer"
+                >
+                  <svg id="icon-muted" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+                  </svg>
+                  <svg id="icon-unmuted" class="w-4 h-4 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                  </svg>
+                  <span id="promo-audio-label">開啟聲音</span>
+                </button>
+
+                <!-- Instagram Link Badge -->
+                {reelUrl && (
+                  <a
+                    href={reelUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="absolute top-3 right-3 z-20 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/50 hover:bg-black/75 text-white text-xs backdrop-blur-sm transition-colors"
+                    title="在 Instagram 觀看"
+                  >
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                    <span>IG Reel</span>
+                  </a>
+                )}
+              </div>
+            </>
+          ) : (
+            <img
+              src={imageSrc}
+              alt={title}
+              class="w-full h-full object-cover object-top hover:scale-[1.02] transition-transform duration-500"
+              loading="lazy"
+            />
+          )}
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  const video = document.getElementById('promo-reel-video') as HTMLVideoElement | null;
+  const toggleBtn = document.getElementById('promo-audio-toggle');
+  const iconMuted = document.getElementById('icon-muted');
+  const iconUnmuted = document.getElementById('icon-unmuted');
+  const audioLabel = document.getElementById('promo-audio-label');
+
+  if (video && toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      video.muted = !video.muted;
+      if (video.muted) {
+        iconMuted?.classList.remove('hidden');
+        iconUnmuted?.classList.add('hidden');
+        if (audioLabel) audioLabel.textContent = '開啟聲音';
+      } else {
+        iconMuted?.classList.add('hidden');
+        iconUnmuted?.classList.remove('hidden');
+        if (audioLabel) audioLabel.textContent = '關閉聲音';
+        video.play().catch(() => {});
+      }
+    });
+
+    // Pause video when scrolled out of viewport to conserve system resources
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              video.play().catch(() => {});
+            } else {
+              video.pause();
+            }
+          });
+        },
+        { rootMargin: '150px' }
+      );
+      observer.observe(video);
+    }
+  }
+</script>
+
