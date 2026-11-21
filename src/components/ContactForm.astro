@@ -21,33 +21,8 @@
         />
       </div>
 
-      <!-- 聯絡電話 -->
-      <div>
-        <label for="phone" class="block text-sm font-medium text-neutral-700 mb-1.5">
-          <span class="text-red-500 font-bold" aria-hidden="true">*</span> 聯絡電話
-          <span class="text-xs font-normal text-neutral-500 ml-1">（09 開頭 10 碼）</span>
-        </label>
-        <input
-          type="tel"
-          name="phone"
-          id="phone"
-          required
-          inputmode="numeric"
-          autocomplete="tel"
-          maxlength="10"
-          pattern="09[0-9]{8}"
-          placeholder="例如：0912345678"
-          data-error="phone-error"
-          aria-invalid="false"
-          class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary focus-visible:outline-2 focus-visible:outline-brand-primary transition-all text-base sm:text-sm"
-        />
-        <p id="phone-error" class="field-error mt-1.5 text-xs text-red-600">
-          <span role="img" aria-label="錯誤">⚠</span> 請輸入 09 開頭的 10 位手機號碼（例如：0912345678）。
-        </p>
-      </div>
-
       <!-- 電子信箱（選填） -->
-      <div class="sm:col-span-2">
+      <div>
         <label for="email" class="block text-sm font-medium text-neutral-700 mb-1.5">
           電子信箱
           <span class="text-xs font-normal text-neutral-500 ml-1">（選填）</span>
@@ -69,6 +44,80 @@
         <p id="email-error" class="field-error mt-1.5 text-xs text-red-600">
           <span role="img" aria-label="錯誤">⚠</span> 請輸入正確的電子信箱格式（例如：name@example.com）。
         </p>
+      </div>
+
+      <!-- 聯絡電話（手機 / 市話切換＋分機） -->
+      <div class="sm:col-span-2">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+          <label for="phone" class="block text-sm font-medium text-neutral-700">
+            <span class="text-red-500 font-bold" aria-hidden="true">*</span> 聯絡電話
+            <span id="phone-hint" class="text-xs font-normal text-neutral-500 ml-1">（09 開頭 10 碼）</span>
+          </label>
+          <fieldset class="inline-flex items-center rounded-lg bg-neutral-100 p-0.5 border border-neutral-200/80">
+            <legend class="sr-only">電話類型</legend>
+            <label class="cursor-pointer">
+              <input type="radio" name="phoneType" value="mobile" checked class="sr-only peer" />
+              <span class="block px-3 py-1 rounded-md text-xs font-medium text-neutral-600 transition-all peer-checked:bg-white peer-checked:text-brand-primary peer-checked:shadow-sm peer-focus-visible:outline-2 peer-focus-visible:outline-brand-primary">
+                手機
+              </span>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="phoneType" value="landline" class="sr-only peer" />
+              <span class="block px-3 py-1 rounded-md text-xs font-medium text-neutral-600 transition-all peer-checked:bg-white peer-checked:text-brand-primary peer-checked:shadow-sm peer-focus-visible:outline-2 peer-focus-visible:outline-brand-primary">
+                市話
+              </span>
+            </label>
+          </fieldset>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3 items-start">
+          <div class="w-full sm:flex-1">
+            <input
+              type="tel"
+              name="phone"
+              id="phone"
+              required
+              inputmode="numeric"
+              autocomplete="tel"
+              maxlength="10"
+              pattern="09[0-9]{8}"
+              placeholder="例如：0912345678"
+              data-error="phone-error"
+              aria-invalid="false"
+              class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary focus-visible:outline-2 focus-visible:outline-brand-primary transition-all text-base sm:text-sm"
+            />
+            <p id="phone-error" class="field-error mt-1.5 text-xs text-red-600">
+              <span role="img" aria-label="錯誤">⚠</span>
+              <span id="phone-error-text">請輸入 09 開頭的 10 位手機號碼（例如：0912345678）。</span>
+            </p>
+          </div>
+
+          <div id="phone-ext-wrapper" class="hidden w-full sm:w-44 shrink-0">
+            <label for="phoneExt" class="sr-only">分機號碼（選填）</label>
+            <div class="relative">
+              <span
+                aria-hidden="true"
+                class="pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-sm text-neutral-400"
+              >#</span>
+              <input
+                type="tel"
+                name="phoneExt"
+                id="phoneExt"
+                disabled
+                inputmode="numeric"
+                maxlength="6"
+                pattern="[0-9]{1,6}"
+                placeholder="分機（選填）"
+                data-error="phone-ext-error"
+                aria-invalid="false"
+                class="w-full pl-8 pr-4 py-3 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary focus-visible:outline-2 focus-visible:outline-brand-primary transition-all text-base sm:text-sm"
+              />
+            </div>
+            <p id="phone-ext-error" class="field-error mt-1.5 text-xs text-red-600">
+              <span role="img" aria-label="錯誤">⚠</span> 分機請輸入 1–6 位純數字。
+            </p>
+          </div>
+        </div>
       </div>
 
       <!-- 案場縣市 -->
@@ -180,7 +229,8 @@
     background-color: #fef2f2;
   }
 
-  #contact-form :is(input, textarea):user-invalid + .field-error {
+  #contact-form :is(input, textarea):user-invalid + .field-error,
+  #contact-form .relative:has(input:user-invalid) + .field-error {
     display: block;
   }
 
@@ -198,14 +248,18 @@
 </style>
 
 <script>
-  const PHONE_REGEX = /^09\d{8}$/;
+  const MOBILE_PHONE_REGEX = /^09\d{8}$/;
+  const LANDLINE_PHONE_REGEX = /^(?:02\d{8}|04\d{7,8}|0[35678]\d{7})$/;
+  const PHONE_EXT_REGEX = /^\d{1,6}$/;
   const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  const MOBILE_PATTERN = '09[0-9]{8}';
+  const LANDLINE_PATTERN = '(?:02[0-9]{8}|04[0-9]{7,8}|0[35678][0-9]{7})';
 
-  function sanitizePhone(raw: string): string {
+  function sanitizeDigits(raw: string, maxLen: number): string {
     return raw
       .replace(/[\uFF10-\uFF19]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0xfee0))
       .replace(/\D/g, '')
-      .slice(0, 10);
+      .slice(0, maxLen);
   }
 
   // 動態載入 Turnstile script
@@ -219,12 +273,24 @@
 
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
   const phoneInput = document.getElementById('phone') as HTMLInputElement | null;
+  const phoneExtInput = document.getElementById('phoneExt') as HTMLInputElement | null;
+  const phoneExtWrapper = document.getElementById('phone-ext-wrapper');
+  const phoneHint = document.getElementById('phone-hint');
+  const phoneErrorText = document.getElementById('phone-error-text');
   const emailInput = document.getElementById('email') as HTMLInputElement | null;
   const formStatus = document.getElementById('form-status');
   const formMessage = document.getElementById('form-message');
 
   if (form) {
     type ValidatableControl = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+    type PhoneType = 'mobile' | 'landline';
+
+    const phoneTypeRadios = form.querySelectorAll<HTMLInputElement>('input[name="phoneType"]');
+
+    const getPhoneType = (): PhoneType => {
+      const checked = form.querySelector<HTMLInputElement>('input[name="phoneType"]:checked');
+      return checked?.value === 'landline' ? 'landline' : 'mobile';
+    };
 
     const isValidatableControl = (el: EventTarget | null): el is ValidatableControl =>
       el instanceof HTMLInputElement ||
@@ -276,6 +342,7 @@
     const announced = new WeakSet<ValidatableControl>();
 
     const syncAria = (el: ValidatableControl, announce = false) => {
+      if (el instanceof HTMLInputElement && el.type === 'radio') return;
       const invalid = el.matches(':user-invalid');
       if (invalid) {
         if (announce && !announced.has(el)) {
@@ -297,14 +364,67 @@
       }
     };
 
+    const updatePhoneMode = (mode: PhoneType) => {
+      if (!phoneInput) return;
+
+      if (mode === 'landline') {
+        phoneInput.pattern = LANDLINE_PATTERN;
+        phoneInput.placeholder = '例如：0225418826';
+        if (phoneHint) {
+          phoneHint.textContent = '（含區碼，雙北 02 為 10 碼，桃竹等為 9 碼）';
+        }
+        if (phoneErrorText) {
+          phoneErrorText.textContent = '請輸入正確市話號碼（含區碼，例如雙北 0225418826、桃竹 035123456）。';
+        }
+        if (phoneExtWrapper) phoneExtWrapper.classList.remove('hidden');
+        if (phoneExtInput) phoneExtInput.disabled = false;
+      } else {
+        phoneInput.pattern = MOBILE_PATTERN;
+        phoneInput.placeholder = '例如：0912345678';
+        if (phoneHint) {
+          phoneHint.textContent = '（09 開頭 10 碼）';
+        }
+        if (phoneErrorText) {
+          phoneErrorText.textContent = '請輸入 09 開頭的 10 位手機號碼（例如：0912345678）。';
+        }
+        if (phoneExtWrapper) phoneExtWrapper.classList.add('hidden');
+        if (phoneExtInput) {
+          phoneExtInput.value = '';
+          phoneExtInput.disabled = true;
+          phoneExtInput.setCustomValidity('');
+          syncAria(phoneExtInput);
+        }
+      }
+
+      phoneInput.setCustomValidity('');
+      syncAria(phoneInput);
+    };
+
     const applyCustomMessage = (el: ValidatableControl) => {
       if (el === phoneInput) {
+        const mode = getPhoneType();
         if (phoneInput.validity.valueMissing) {
           phoneInput.setCustomValidity('請輸入聯絡電話');
-        } else if (phoneInput.validity.patternMismatch || !PHONE_REGEX.test(phoneInput.value)) {
-          phoneInput.setCustomValidity('請輸入 09 開頭的 10 位手機號碼（例如：0912345678）');
+        } else if (mode === 'mobile') {
+          if (phoneInput.validity.patternMismatch || !MOBILE_PHONE_REGEX.test(phoneInput.value)) {
+            phoneInput.setCustomValidity('請輸入 09 開頭的 10 位手機號碼（例如：0912345678）');
+          } else {
+            phoneInput.setCustomValidity('');
+          }
+        } else if (phoneInput.validity.patternMismatch || !LANDLINE_PHONE_REGEX.test(phoneInput.value)) {
+          phoneInput.setCustomValidity('請輸入正確市話號碼（含區碼，例如雙北 0225418826、桃竹 035123456）');
         } else {
           phoneInput.setCustomValidity('');
+        }
+      } else if (el === phoneExtInput) {
+        if (
+          !phoneExtInput.disabled &&
+          phoneExtInput.value &&
+          (phoneExtInput.validity.patternMismatch || !PHONE_EXT_REGEX.test(phoneExtInput.value))
+        ) {
+          phoneExtInput.setCustomValidity('分機請輸入 1–6 位純數字');
+        } else {
+          phoneExtInput.setCustomValidity('');
         }
       } else if (el === emailInput) {
         if (emailInput.validity.typeMismatch || emailInput.validity.patternMismatch) {
@@ -315,16 +435,22 @@
       }
     };
 
-    // 初始化 aria-invalid="false"
+    // 初始化 aria-invalid="false" 與電話模式
     form.querySelectorAll('input, select, textarea').forEach((node) => {
       if (isValidatableControl(node)) {
         syncAria(node);
       }
     });
 
+    phoneTypeRadios.forEach((radio) => {
+      radio.addEventListener('change', () => {
+        updatePhoneMode(getPhoneType());
+      });
+    });
+
     if (phoneInput) {
       const handlePhoneInput = () => {
-        const cleaned = sanitizePhone(phoneInput.value);
+        const cleaned = sanitizeDigits(phoneInput.value, 10);
         if (phoneInput.value !== cleaned) {
           phoneInput.value = cleaned;
         }
@@ -342,6 +468,26 @@
       phoneInput.addEventListener('compositionend', handlePhoneInput);
     }
 
+    if (phoneExtInput) {
+      const handlePhoneExtInput = () => {
+        const cleaned = sanitizeDigits(phoneExtInput.value, 6);
+        if (phoneExtInput.value !== cleaned) {
+          phoneExtInput.value = cleaned;
+        }
+        phoneExtInput.setCustomValidity('');
+      };
+
+      phoneExtInput.addEventListener('input', (e) => {
+        if ((e as InputEvent).isComposing) {
+          phoneExtInput.setCustomValidity('');
+          return;
+        }
+        handlePhoneExtInput();
+      });
+
+      phoneExtInput.addEventListener('compositionend', handlePhoneExtInput);
+    }
+
     if (emailInput) {
       emailInput.addEventListener('input', () => {
         emailInput.setCustomValidity('');
@@ -353,9 +499,13 @@
       (e) => {
         if (!isValidatableControl(e.target)) return;
         if (e.target === phoneInput) {
-          const cleaned = sanitizePhone(phoneInput.value);
+          const cleaned = sanitizeDigits(phoneInput.value, 10);
           if (phoneInput.value !== cleaned) phoneInput.value = cleaned;
           phoneInput.setCustomValidity('');
+        } else if (e.target === phoneExtInput) {
+          const cleaned = sanitizeDigits(phoneExtInput.value, 6);
+          if (phoneExtInput.value !== cleaned) phoneExtInput.value = cleaned;
+          phoneExtInput.setCustomValidity('');
         } else if (e.target === emailInput) {
           emailInput.value = emailInput.value.trim();
           emailInput.setCustomValidity('');
@@ -385,6 +535,7 @@
 
     form.addEventListener('reset', () => {
       setTimeout(() => {
+        updatePhoneMode(getPhoneType());
         form.querySelectorAll('input, select, textarea').forEach((node) => {
           if (isValidatableControl(node)) {
             node.setCustomValidity('');
@@ -397,14 +548,31 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // 送出前最後防線：清理並驗證電話與選填 Email
+      const phoneType = getPhoneType();
+
+      // 送出前最後防線：清理並驗證電話、分機與選填 Email
       if (phoneInput) {
-        phoneInput.value = sanitizePhone(phoneInput.value);
+        phoneInput.value = sanitizeDigits(phoneInput.value, 10);
         phoneInput.setCustomValidity('');
-        if (!PHONE_REGEX.test(phoneInput.value)) {
+        const isPhoneValid =
+          phoneType === 'mobile'
+            ? MOBILE_PHONE_REGEX.test(phoneInput.value)
+            : LANDLINE_PHONE_REGEX.test(phoneInput.value);
+        if (!isPhoneValid) {
           applyCustomMessage(phoneInput);
           phoneInput.reportValidity();
           phoneInput.focus();
+          return;
+        }
+      }
+
+      if (phoneExtInput && phoneType === 'landline') {
+        phoneExtInput.value = sanitizeDigits(phoneExtInput.value, 6);
+        phoneExtInput.setCustomValidity('');
+        if (phoneExtInput.value && !PHONE_EXT_REGEX.test(phoneExtInput.value)) {
+          applyCustomMessage(phoneExtInput);
+          phoneExtInput.reportValidity();
+          phoneExtInput.focus();
           return;
         }
       }
@@ -437,11 +605,15 @@
 
       try {
         const formData = new FormData(form);
-        const cleanedPhone = sanitizePhone(String(formData.get('phone') || ''));
+        const cleanedPhone = sanitizeDigits(String(formData.get('phone') || ''), 10);
+        const cleanedPhoneExt =
+          phoneType === 'landline' ? sanitizeDigits(String(formData.get('phoneExt') || ''), 6) : '';
         const trimmedEmail = String(formData.get('email') || '').trim();
         const data = {
           name: String(formData.get('name') || '').trim(),
+          phoneType,
           phone: cleanedPhone,
+          phoneExt: cleanedPhoneExt,
           email: trimmedEmail,
           city: String(formData.get('city') || '').trim(),
           houseAge: String(formData.get('houseAge') || '').trim(),

@@ -9,7 +9,9 @@ interface TurnstileResponse {
   'error-codes'?: string[];
 }
 
-const PHONE_REGEX = /^09\d{8}$/;
+const MOBILE_PHONE_REGEX = /^09\d{8}$/;
+const LANDLINE_PHONE_REGEX = /^(?:02\d{8}|04\d{7,8}|0[35678]\d{7})$/;
+const PHONE_EXT_REGEX = /^\d{1,6}$/;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 function escapeHtml(value: string): string {
@@ -21,7 +23,7 @@ function escapeHtml(value: string): string {
     .replace(/'/g, '&#39;');
 }
 
-function normalizePhone(raw: string): string {
+function normalizeDigits(raw: string): string {
   return raw
     .replace(/[\uFF10-\uFF19]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0xfee0))
     .replace(/\D/g, '');
@@ -40,8 +42,18 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     const body = (await request.json()) as Record<string, unknown>;
     const toStr = (v: unknown) => (typeof v === 'string' ? v.trim() : '');
 
+    const rawPhoneType = toStr(body.phoneType);
+    const phoneType = rawPhoneType === '' ? 'mobile' : rawPhoneType;
+    if (phoneType !== 'mobile' && phoneType !== 'landline') {
+      return new Response(JSON.stringify({ error: '請選擇正確的電話類型' }), {
+        status: 400,
+        headers,
+      });
+    }
+
     const trimmedName = toStr(body.name);
-    const trimmedPhone = normalizePhone(toStr(body.phone));
+    const trimmedPhone = normalizeDigits(toStr(body.phone));
+    const trimmedPhoneExt = phoneType === 'landline' ? normalizeDigits(toStr(body.phoneExt)) : '';
     const trimmedEmail = toStr(body.email);
     const trimmedCity = toStr(body.city);
     const trimmedHouseAge = toStr(body.houseAge);
@@ -65,9 +77,26 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       });
     }
 
-    // 電話格式檢查（09 開頭 10 碼）
-    if (!PHONE_REGEX.test(trimmedPhone)) {
+    // 電話與分機格式檢查
+    if (phoneType === 'mobile' && !MOBILE_PHONE_REGEX.test(trimmedPhone)) {
       return new Response(JSON.stringify({ error: '請輸入 09 開頭的 10 位手機號碼' }), {
+        status: 400,
+        headers,
+      });
+    }
+
+    if (phoneType === 'landline' && !LANDLINE_PHONE_REGEX.test(trimmedPhone)) {
+      return new Response(
+        JSON.stringify({ error: '請輸入正確市話號碼（含區碼，例如雙北 0225418826、桃竹 035123456）' }),
+        {
+          status: 400,
+          headers,
+        }
+      );
+    }
+
+    if (phoneType === 'landline' && trimmedPhoneExt && !PHONE_EXT_REGEX.test(trimmedPhoneExt)) {
+      return new Response(JSON.stringify({ error: '分機請輸入 1 至 6 位數字' }), {
         status: 400,
         headers,
       });
@@ -107,6 +136,9 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     const safeSubjectName = trimmedName.replace(/[\r\n]+/g, ' ');
     const safeSubjectCity = trimmedCity.replace(/[\r\n]+/g, ' ');
+    const formattedPhone = trimmedPhoneExt
+      ? `${escapeHtml(trimmedPhone)} #${escapeHtml(trimmedPhoneExt)}`
+      : escapeHtml(trimmedPhone);
 
     // 用 Resend 寄信
     const emailResponse = await fetch('https://api.resend.com/emails', {
@@ -124,7 +156,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
           <h2>網站聯絡表單通知</h2>
           <table style="border-collapse:collapse;width:100%;max-width:600px;">
             <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">姓名</td><td style="padding:8px;border:1px solid #ddd;">${escapeHtml(trimmedName)}</td></tr>
-            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">電話</td><td style="padding:8px;border:1px solid #ddd;">${escapeHtml(trimmedPhone)}</td></tr>
+            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">電話</td><td style="padding:8px;border:1px solid #ddd;">${formattedPhone}</td></tr>
             <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">電子信箱</td><td style="padding:8px;border:1px solid #ddd;">${trimmedEmail ? escapeHtml(trimmedEmail) : '（未填寫）'}</td></tr>
             <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">案場縣市</td><td style="padding:8px;border:1px solid #ddd;">${escapeHtml(trimmedCity)}</td></tr>
             <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">屋齡</td><td style="padding:8px;border:1px solid #ddd;">${escapeHtml(trimmedHouseAge)}</td></tr>
