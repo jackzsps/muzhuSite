@@ -7,37 +7,74 @@
       <!-- 姓名 -->
       <div>
         <label for="name" class="block text-sm font-medium text-neutral-700 mb-1.5">
-          <span class="text-red-500 font-bold">*</span> 姓名
+          <span class="text-red-500 font-bold" aria-hidden="true">*</span> 姓名
         </label>
         <input
           type="text"
           name="name"
           id="name"
           required
+          autocomplete="name"
           placeholder="請輸入姓名"
-          class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-none transition-all text-sm"
+          aria-invalid="false"
+          class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary focus-visible:outline-2 focus-visible:outline-brand-primary transition-all text-base sm:text-sm"
         />
       </div>
 
       <!-- 聯絡電話 -->
       <div>
         <label for="phone" class="block text-sm font-medium text-neutral-700 mb-1.5">
-          <span class="text-red-500 font-bold">*</span> 聯絡電話
+          <span class="text-red-500 font-bold" aria-hidden="true">*</span> 聯絡電話
+          <span class="text-xs font-normal text-neutral-500 ml-1">（09 開頭 10 碼）</span>
         </label>
         <input
           type="tel"
           name="phone"
           id="phone"
           required
-          placeholder="請輸入聯絡電話"
-          class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-none transition-all text-sm"
+          inputmode="numeric"
+          autocomplete="tel"
+          maxlength="10"
+          pattern="09[0-9]{8}"
+          placeholder="例如：0912345678"
+          data-error="phone-error"
+          aria-invalid="false"
+          class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary focus-visible:outline-2 focus-visible:outline-brand-primary transition-all text-base sm:text-sm"
         />
+        <p id="phone-error" class="field-error mt-1.5 text-xs text-red-600">
+          <span role="img" aria-label="錯誤">⚠</span> 請輸入 09 開頭的 10 位手機號碼（例如：0912345678）。
+        </p>
+      </div>
+
+      <!-- 電子信箱（選填） -->
+      <div class="sm:col-span-2">
+        <label for="email" class="block text-sm font-medium text-neutral-700 mb-1.5">
+          電子信箱
+          <span class="text-xs font-normal text-neutral-500 ml-1">（選填）</span>
+        </label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          autocomplete="email"
+          autocapitalize="none"
+          autocorrect="off"
+          spellcheck="false"
+          pattern="[^\s@]+@[^\s@]+\.[^\s@]{2,}"
+          placeholder="例如：name@example.com"
+          data-error="email-error"
+          aria-invalid="false"
+          class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary focus-visible:outline-2 focus-visible:outline-brand-primary transition-all text-base sm:text-sm"
+        />
+        <p id="email-error" class="field-error mt-1.5 text-xs text-red-600">
+          <span role="img" aria-label="錯誤">⚠</span> 請輸入正確的電子信箱格式（例如：name@example.com）。
+        </p>
       </div>
 
       <!-- 案場縣市 -->
       <div>
         <label for="city" class="block text-sm font-medium text-neutral-700 mb-1.5">
-          <span class="text-red-500 font-bold">*</span> 案場縣市
+          <span class="text-red-500 font-bold" aria-hidden="true">*</span> 案場縣市
         </label>
         <input
           type="text"
@@ -45,14 +82,15 @@
           id="city"
           required
           placeholder="例如：台北市中山區"
-          class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-none transition-all text-sm"
+          aria-invalid="false"
+          class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary focus-visible:outline-2 focus-visible:outline-brand-primary transition-all text-base sm:text-sm"
         />
       </div>
 
       <!-- 屋齡 -->
       <div>
         <label for="houseAge" class="block text-sm font-medium text-neutral-700 mb-1.5">
-          <span class="text-red-500 font-bold">*</span> 屋齡
+          <span class="text-red-500 font-bold" aria-hidden="true">*</span> 屋齡
         </label>
         <input
           type="text"
@@ -60,14 +98,15 @@
           id="houseAge"
           required
           placeholder="例如：新成屋 / 5年 / 老屋翻新"
-          class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-none transition-all text-sm"
+          aria-invalid="false"
+          class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary focus-visible:outline-2 focus-visible:outline-brand-primary transition-all text-base sm:text-sm"
         />
       </div>
 
       <!-- 室內坪數 -->
       <div>
         <label for="indoorPing" class="block text-sm font-medium text-neutral-700 mb-1.5">
-          <span class="text-red-500 font-bold">*</span> 室內坪數
+          <span class="text-red-500 font-bold" aria-hidden="true">*</span> 室內坪數
         </label>
         <input
           type="text"
@@ -75,14 +114,15 @@
           id="indoorPing"
           required
           placeholder="例如：25 坪"
-          class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-none transition-all text-sm"
+          aria-invalid="false"
+          class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary focus-visible:outline-2 focus-visible:outline-brand-primary transition-all text-base sm:text-sm"
         />
       </div>
 
       <!-- 裝修預算 -->
       <div>
         <label for="budget" class="block text-sm font-medium text-neutral-700 mb-1.5">
-          <span class="text-red-500 font-bold">*</span> 裝修預算
+          <span class="text-red-500 font-bold" aria-hidden="true">*</span> 裝修預算
         </label>
         <input
           type="text"
@@ -90,7 +130,8 @@
           id="budget"
           required
           placeholder="例如：30-50萬 / 50-100萬"
-          class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-none transition-all text-sm"
+          aria-invalid="false"
+          class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary focus-visible:outline-2 focus-visible:outline-brand-primary transition-all text-base sm:text-sm"
         />
       </div>
     </div>
@@ -104,7 +145,8 @@
         id="message"
         name="message"
         rows="4"
-        class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-none transition-all text-sm placeholder-neutral-400"
+        aria-invalid="false"
+        class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary focus-visible:outline-2 focus-visible:outline-brand-primary transition-all text-base sm:text-sm placeholder-neutral-400"
         placeholder="請簡述您的需求，例如：客廳電視櫃、主臥衣櫃、全室收納規劃等..."
       ></textarea>
     </div>
@@ -121,15 +163,51 @@
         送出表單
       </button>
     </div>
-    
-    <div id="form-status" class="hidden rounded-md p-4 mt-4">
+
+    <div id="form-status" class="hidden rounded-md p-4 mt-4" role="status" aria-live="polite">
       <p id="form-message" class="text-sm font-medium"></p>
     </div>
   </form>
 </div>
 
+<style>
+  .field-error {
+    display: none;
+  }
+
+  #contact-form :is(input, textarea):user-invalid {
+    border-color: #dc2626;
+    background-color: #fef2f2;
+  }
+
+  #contact-form :is(input, textarea):user-invalid + .field-error {
+    display: block;
+  }
+
+  :global(.visually-hidden:where(:not(:focus-within, :active))) {
+    position: absolute !important;
+    clip-path: inset(50%) !important;
+    overflow: hidden !important;
+    width: 1px !important;
+    height: 1px !important;
+    margin: -1px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    white-space: nowrap !important;
+  }
+</style>
 
 <script>
+  const PHONE_REGEX = /^09\d{8}$/;
+  const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+  function sanitizePhone(raw: string): string {
+    return raw
+      .replace(/[\uFF10-\uFF19]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0xfee0))
+      .replace(/\D/g, '')
+      .slice(0, 10);
+  }
+
   // 動態載入 Turnstile script
   if (!document.querySelector('script[src*="challenges.cloudflare.com/turnstile"]')) {
     const s = document.createElement('script');
@@ -139,13 +217,208 @@
     document.head.appendChild(s);
   }
 
-  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const phoneInput = document.getElementById('phone') as HTMLInputElement | null;
+  const emailInput = document.getElementById('email') as HTMLInputElement | null;
   const formStatus = document.getElementById('form-status');
   const formMessage = document.getElementById('form-message');
 
   if (form) {
+    type ValidatableControl = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+
+    const isValidatableControl = (el: EventTarget | null): el is ValidatableControl =>
+      el instanceof HTMLInputElement ||
+      el instanceof HTMLTextAreaElement ||
+      el instanceof HTMLSelectElement;
+
+    const linkError = (el: ValidatableControl, shown: boolean) => {
+      const errorId = el.dataset.error;
+      if (!errorId) return;
+      const ids = (el.getAttribute('aria-describedby') || '')
+        .split(/\s+/)
+        .filter((id) => id && id !== errorId);
+      if (shown) ids.push(errorId);
+      if (ids.length) el.setAttribute('aria-describedby', ids.join(' '));
+      else el.removeAttribute('aria-describedby');
+    };
+
+    const announcer = document.createElement('div');
+    announcer.setAttribute('aria-live', 'polite');
+    announcer.classList.add('visually-hidden');
+    document.body.append(announcer);
+    let announceTimer: ReturnType<typeof setTimeout> | undefined;
+    let announcedField: ValidatableControl | undefined;
+
+    const spokenText = (node: Node): string => {
+      const copy = node.cloneNode(true) as Element;
+      copy.querySelectorAll('[aria-hidden="true"]').forEach((n) => n.remove());
+      copy.querySelectorAll('[role="img"][aria-label]').forEach((n) => {
+        n.replaceWith(`${n.getAttribute('aria-label')}: `);
+      });
+      return (copy.textContent || '').replace(/\s+/g, ' ').trim();
+    };
+
+    const announceError = (el: ValidatableControl) => {
+      const errorId = el.dataset.error;
+      if (!errorId) return;
+      const errorEl = document.getElementById(errorId);
+      if (!errorEl) return;
+      const label = el.labels?.[0] ? `${spokenText(el.labels[0])}: ` : '';
+      clearTimeout(announceTimer);
+      announcer.textContent = '';
+      announcedField = el;
+      announceTimer = setTimeout(() => {
+        announcer.textContent = label + spokenText(errorEl);
+      }, 500);
+    };
+
+    const flagged = new WeakSet<ValidatableControl>();
+    const announced = new WeakSet<ValidatableControl>();
+
+    const syncAria = (el: ValidatableControl, announce = false) => {
+      const invalid = el.matches(':user-invalid');
+      if (invalid) {
+        if (announce && !announced.has(el)) {
+          announceError(el);
+          announced.add(el);
+        }
+        el.setAttribute('aria-invalid', 'true');
+        linkError(el, true);
+        flagged.add(el);
+      } else if (flagged.has(el) || el.getAttribute('aria-invalid') !== 'true') {
+        el.setAttribute('aria-invalid', 'false');
+        linkError(el, false);
+        flagged.delete(el);
+        announced.delete(el);
+        if (announcedField === el) {
+          clearTimeout(announceTimer);
+          announcer.textContent = '';
+        }
+      }
+    };
+
+    const applyCustomMessage = (el: ValidatableControl) => {
+      if (el === phoneInput) {
+        if (phoneInput.validity.valueMissing) {
+          phoneInput.setCustomValidity('請輸入聯絡電話');
+        } else if (phoneInput.validity.patternMismatch || !PHONE_REGEX.test(phoneInput.value)) {
+          phoneInput.setCustomValidity('請輸入 09 開頭的 10 位手機號碼（例如：0912345678）');
+        } else {
+          phoneInput.setCustomValidity('');
+        }
+      } else if (el === emailInput) {
+        if (emailInput.validity.typeMismatch || emailInput.validity.patternMismatch) {
+          emailInput.setCustomValidity('請輸入正確的電子信箱格式（例如：name@example.com）');
+        } else {
+          emailInput.setCustomValidity('');
+        }
+      }
+    };
+
+    // 初始化 aria-invalid="false"
+    form.querySelectorAll('input, select, textarea').forEach((node) => {
+      if (isValidatableControl(node)) {
+        syncAria(node);
+      }
+    });
+
+    if (phoneInput) {
+      const handlePhoneInput = () => {
+        const cleaned = sanitizePhone(phoneInput.value);
+        if (phoneInput.value !== cleaned) {
+          phoneInput.value = cleaned;
+        }
+        phoneInput.setCustomValidity('');
+      };
+
+      phoneInput.addEventListener('input', (e) => {
+        if ((e as InputEvent).isComposing) {
+          phoneInput.setCustomValidity('');
+          return;
+        }
+        handlePhoneInput();
+      });
+
+      phoneInput.addEventListener('compositionend', handlePhoneInput);
+    }
+
+    if (emailInput) {
+      emailInput.addEventListener('input', () => {
+        emailInput.setCustomValidity('');
+      });
+    }
+
+    form.addEventListener(
+      'blur',
+      (e) => {
+        if (!isValidatableControl(e.target)) return;
+        if (e.target === phoneInput) {
+          const cleaned = sanitizePhone(phoneInput.value);
+          if (phoneInput.value !== cleaned) phoneInput.value = cleaned;
+          phoneInput.setCustomValidity('');
+        } else if (e.target === emailInput) {
+          emailInput.value = emailInput.value.trim();
+          emailInput.setCustomValidity('');
+        }
+        syncAria(e.target, true);
+      },
+      true
+    );
+
+    form.addEventListener('input', (e) => {
+      if (!isValidatableControl(e.target)) return;
+      if (e.target.hasAttribute('aria-invalid')) {
+        syncAria(e.target);
+      }
+    });
+
+    form.addEventListener(
+      'invalid',
+      (e) => {
+        if (!isValidatableControl(e.target)) return;
+        applyCustomMessage(e.target);
+        announced.add(e.target);
+        syncAria(e.target);
+      },
+      true
+    );
+
+    form.addEventListener('reset', () => {
+      setTimeout(() => {
+        form.querySelectorAll('input, select, textarea').forEach((node) => {
+          if (isValidatableControl(node)) {
+            node.setCustomValidity('');
+            syncAria(node);
+          }
+        });
+      });
+    });
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      // 送出前最後防線：清理並驗證電話與選填 Email
+      if (phoneInput) {
+        phoneInput.value = sanitizePhone(phoneInput.value);
+        phoneInput.setCustomValidity('');
+        if (!PHONE_REGEX.test(phoneInput.value)) {
+          applyCustomMessage(phoneInput);
+          phoneInput.reportValidity();
+          phoneInput.focus();
+          return;
+        }
+      }
+
+      if (emailInput) {
+        emailInput.value = emailInput.value.trim();
+        emailInput.setCustomValidity('');
+        if (emailInput.value && !EMAIL_REGEX.test(emailInput.value)) {
+          applyCustomMessage(emailInput);
+          emailInput.reportValidity();
+          emailInput.focus();
+          return;
+        }
+      }
 
       // 檢查 Turnstile 驗證
       const turnstileResponse = form.querySelector<HTMLInputElement>('[name="cf-turnstile-response"]');
@@ -156,22 +429,25 @@
         }
         return;
       }
-      
+
       const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
-      
+
       submitBtn.disabled = true;
       submitBtn.textContent = '傳送中...';
 
       try {
         const formData = new FormData(form);
+        const cleanedPhone = sanitizePhone(String(formData.get('phone') || ''));
+        const trimmedEmail = String(formData.get('email') || '').trim();
         const data = {
-          name: formData.get('name'),
-          phone: formData.get('phone'),
-          city: formData.get('city'),
-          houseAge: formData.get('houseAge'),
-          indoorPing: formData.get('indoorPing'),
-          budget: formData.get('budget'),
-          message: formData.get('message'),
+          name: String(formData.get('name') || '').trim(),
+          phone: cleanedPhone,
+          email: trimmedEmail,
+          city: String(formData.get('city') || '').trim(),
+          houseAge: String(formData.get('houseAge') || '').trim(),
+          indoorPing: String(formData.get('indoorPing') || '').trim(),
+          budget: String(formData.get('budget') || '').trim(),
+          message: String(formData.get('message') || '').trim(),
           turnstileToken: turnstileResponse.value,
         };
 
@@ -181,7 +457,7 @@
           body: JSON.stringify(data),
         });
 
-        const result = await response.json() as { error?: string };
+        const result = (await response.json()) as { error?: string };
 
         if (formStatus && formMessage) {
           if (response.ok) {

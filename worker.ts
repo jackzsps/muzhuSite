@@ -10,6 +10,24 @@ interface TurnstileResponse {
   'error-codes'?: string[];
 }
 
+const PHONE_REGEX = /^09\d{8}$/;
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function normalizePhone(raw: string): string {
+  return raw
+    .replace(/[\uFF10-\uFF19]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0xfee0))
+    .replace(/\D/g, '');
+}
+
 async function handleContact(request: Request, env: Env): Promise<Response> {
   const headers = {
     'Content-Type': 'application/json',
@@ -17,12 +35,45 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
   };
 
   try {
-    const body = await request.json() as Record<string, string>;
-    const { name, phone, city, houseAge, indoorPing, budget, message, turnstileToken } = body;
+    const body = (await request.json()) as Record<string, unknown>;
+    const toStr = (v: unknown) => (typeof v === 'string' ? v.trim() : '');
+
+    const trimmedName = toStr(body.name);
+    const trimmedPhone = normalizePhone(toStr(body.phone));
+    const trimmedEmail = toStr(body.email);
+    const trimmedCity = toStr(body.city);
+    const trimmedHouseAge = toStr(body.houseAge);
+    const trimmedIndoorPing = toStr(body.indoorPing);
+    const trimmedBudget = toStr(body.budget);
+    const trimmedMessage = toStr(body.message);
+    const turnstileToken = toStr(body.turnstileToken);
 
     // 必填欄位檢查
-    if (!name || !phone || !city || !houseAge || !indoorPing || !budget) {
+    if (
+      !trimmedName ||
+      !trimmedPhone ||
+      !trimmedCity ||
+      !trimmedHouseAge ||
+      !trimmedIndoorPing ||
+      !trimmedBudget
+    ) {
       return new Response(JSON.stringify({ error: '請填寫所有必填欄位' }), {
+        status: 400,
+        headers,
+      });
+    }
+
+    // 電話格式檢查（09 開頭 10 碼）
+    if (!PHONE_REGEX.test(trimmedPhone)) {
+      return new Response(JSON.stringify({ error: '請輸入 09 開頭的 10 位手機號碼' }), {
+        status: 400,
+        headers,
+      });
+    }
+
+    // Email 格式檢查（選填，有填時驗證）
+    if (trimmedEmail && !EMAIL_REGEX.test(trimmedEmail)) {
+      return new Response(JSON.stringify({ error: '請輸入正確的電子信箱格式' }), {
         status: 400,
         headers,
       });
@@ -52,6 +103,9 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
       ? env.NOTIFY_EMAILS.split(',').map((e: string) => e.trim())
       : ['muzu.jim@muzutw.com'];
 
+    const safeSubjectName = trimmedName.replace(/[\r\n]+/g, ' ');
+    const safeSubjectCity = trimmedCity.replace(/[\r\n]+/g, ' ');
+
     // 用 Resend 寄信
     const emailResponse = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -62,17 +116,19 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
       body: JSON.stringify({
         from: '沐築系統家居 <noreply@muzu.com.tw>',
         to: recipients,
-        subject: `【網站詢價】${name} - ${city}`,
+        ...(trimmedEmail ? { reply_to: trimmedEmail } : {}),
+        subject: `【網站詢價】${safeSubjectName} - ${safeSubjectCity}`,
         html: `
           <h2>網站聯絡表單通知</h2>
           <table style="border-collapse:collapse;width:100%;max-width:600px;">
-            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">姓名</td><td style="padding:8px;border:1px solid #ddd;">${name}</td></tr>
-            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">電話</td><td style="padding:8px;border:1px solid #ddd;">${phone}</td></tr>
-            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">案場縣市</td><td style="padding:8px;border:1px solid #ddd;">${city}</td></tr>
-            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">屋齡</td><td style="padding:8px;border:1px solid #ddd;">${houseAge}</td></tr>
-            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">室內坪數</td><td style="padding:8px;border:1px solid #ddd;">${indoorPing}</td></tr>
-            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">裝修預算</td><td style="padding:8px;border:1px solid #ddd;">${budget}</td></tr>
-            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">需求說明</td><td style="padding:8px;border:1px solid #ddd;">${message || '（未填寫）'}</td></tr>
+            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">姓名</td><td style="padding:8px;border:1px solid #ddd;">${escapeHtml(trimmedName)}</td></tr>
+            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">電話</td><td style="padding:8px;border:1px solid #ddd;">${escapeHtml(trimmedPhone)}</td></tr>
+            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">電子信箱</td><td style="padding:8px;border:1px solid #ddd;">${trimmedEmail ? escapeHtml(trimmedEmail) : '（未填寫）'}</td></tr>
+            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">案場縣市</td><td style="padding:8px;border:1px solid #ddd;">${escapeHtml(trimmedCity)}</td></tr>
+            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">屋齡</td><td style="padding:8px;border:1px solid #ddd;">${escapeHtml(trimmedHouseAge)}</td></tr>
+            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">室內坪數</td><td style="padding:8px;border:1px solid #ddd;">${escapeHtml(trimmedIndoorPing)}</td></tr>
+            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">裝修預算</td><td style="padding:8px;border:1px solid #ddd;">${escapeHtml(trimmedBudget)}</td></tr>
+            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">需求說明</td><td style="padding:8px;border:1px solid #ddd;">${trimmedMessage ? escapeHtml(trimmedMessage).replace(/\r?\n/g, '<br>') : '（未填寫）'}</td></tr>
           </table>
           <p style="color:#999;font-size:12px;margin-top:16px;">此信件由沐築系統家居網站自動發送</p>
         `,
